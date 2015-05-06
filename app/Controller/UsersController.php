@@ -2,15 +2,43 @@
 
 class UsersController extends AppController
 {
+
     public function beforeFilter()
     {
         parent::beforeFilter();
         $this->Auth->allow('add','logout');
+
     }
+
+    public function isAuthorized($user) {
+
+        if(in_array($this->action,array('edit','delete')))
+        {
+            if($user['role'] !== 'admin')/// Only Admin can access
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public function index()
     {
        // $this->Session->destroy();
+
+       // debug($this->Auth->user('role'));
+
     }
+
+    public function edit()
+    {
+        // $this->Session->destroy();
+
+       // debug($this->Auth->user('role'));
+    }
+
+
+
     public function add() {
         if ($this->request->is('post')) {
             $this->User->create();
@@ -23,7 +51,6 @@ class UsersController extends AppController
             );
         }
     }
-
     public function login()
     {
         if($this->request->is('post'))
@@ -32,6 +59,7 @@ class UsersController extends AppController
             if($this->Auth->login())
             {
                 return $this->redirect($this->Auth->redirectUrl());
+               ///$this->Auth->redirectUrl() sẽ tự động gọi tới loginRedirect dc quy định trong $components in AppController
             }
             $this->Session->setFlash(__('Invalid username or password, try again'));
         }

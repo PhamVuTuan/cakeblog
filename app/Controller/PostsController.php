@@ -2,8 +2,24 @@
 
 class PostsController extends AppController
 {
+    public function isAuthorized($user)
+    {
+        if(in_array($this->action,array('edit','delete')))
+        {
+            $postId = (int) $this->request->params['pass'][0];
+
+            if($this->Post->isOwnedBy($postId,$user['id']))
+            {
+                return true;
+            }
+           return false;
+        }
+
+    }
     public function index()
     {
+        //  $this->User->id = 6;
+       // echo $this->Post->field('title',array('id'=>10,'user_id'=>7));
         $this->set('posts', $this->Post->find('all'));
     }
 
@@ -26,9 +42,10 @@ class PostsController extends AppController
         {
             //$this->Post->create();
             $this->request->data['Post']['user_id'] = $this->Auth->user('id');
-            
+
             if($this->Post->save($this->request->data)){
                 $this->Session->setFlash(__('Your post has been saved.'));
+
                 return $this->redirect(array('action' => 'index'));
             }
 
@@ -36,6 +53,7 @@ class PostsController extends AppController
     }
 
     public function edit($id = null) {
+       // debug($this->request->params);
         if (!$id) {
             throw new NotFoundException(__('Invalid post'));
         }
