@@ -101,4 +101,21 @@ class PostsController extends AppController
 
         return $this->redirect(array('action' => 'index'));
     }
+
+
+    ///Action change Langue
+    public function change($lang=null)
+    {
+       if(isset($lang) && $lang=== 'vi' ) {
+
+               $this->Session->write('Config.language', 'vie');
+               Configure::write('Config.language', 'vie');
+               return $this->redirect(array('action' => 'index'));
+       }
+        $this->Session->write('Config.language', 'en');
+        Configure::write('Config.language', 'en');
+        return $this->redirect(array('action' => 'index'));
+
+
+    }
 }

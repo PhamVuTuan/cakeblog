@@ -1,0 +1,32 @@
+msgid "Add User"
+msgstr "Add User"
+
+msgid "username"
+msgstr "username"
+
+msgid "password"
+msgstr "password"
+
+msgid "role"
+msgstr "role"
+
+msgid "Submit"
+msgstr "Submit"
+
+msgid "Add Post"
+msgstr "Add Post"
+
+msgid "Title"
+msgstr "Title"
+
+msgid "Action"
+msgstr "Action"
+
+msgid "Created"
+msgstr "Created"
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Edit"
+msgstr "Edit"

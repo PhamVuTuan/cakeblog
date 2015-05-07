@@ -55,17 +55,17 @@ class UsersController extends AppController
     {
         if($this->request->is('post'))
         {
-            //debug($this->request->data);exit;
             if($this->Auth->login())
             {
                 return $this->redirect($this->Auth->redirectUrl());
                ///$this->Auth->redirectUrl() sẽ tự động gọi tới loginRedirect dc quy định trong $components in AppController
             }
-            $this->Session->setFlash(__('Invalid username or password, try again'));
+            $this->Session->setFlash(__('Your username or password was incorrect.'));
         }
     }
-    public function logout() {
-        return $this->redirect($this->Auth->logout());
+    public function logout()
+    {
+       return $this->redirect($this->Auth->logout());
     }
 
 }

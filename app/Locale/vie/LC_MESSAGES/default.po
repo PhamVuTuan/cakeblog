@@ -1,0 +1,33 @@
+
+msgid "Add User"
+msgstr "Thêm Tài Khoản"
+
+msgid "username"
+msgstr "Tên tài khoản"
+
+msgid "password"
+msgstr "Mật Khẩu"
+
+msgid "role"
+msgstr "Quyền"
+
+msgid "Submit"
+msgstr "Nộp"
+
+msgid "Add Post"
+msgstr "Thêm mới"
+
+msgid "Title"
+msgstr "Tiêu đề"
+
+msgid "Action"
+msgstr "Hành động"
+
+msgid "Created"
+msgstr "Ngày tạo"
+
+msgid "Delete"
+msgstr "Xóa"
+
+msgid "Edit"
+msgstr "Sửa"

@@ -1,11 +1,13 @@
 <h1>Blog posts</h1>
-<p><?php echo $this->Html->link("Add Post", array('action' => 'add')); ?></p>
+<p><?php echo $this->Html->link('En', array('action' => 'change','en')); ?>|
+    <?php echo $this->Html->link('Vi', array('action' => 'change','vi')); ?></p>
+<p><?php echo $this->Html->link(__('Add Post'), array('action' => 'add')); ?></p>
 <table>
     <tr>
         <th>Id</th>
-        <th>Title</th>
-        <th>Action</th>
-        <th>Created</th>
+        <th><?php echo __('Title') ?></th>
+        <th><?php echo  __('Action') ?></th>
+        <th><?php echo  __('Created')?></th>
     </tr>
 
     <!-- Here's where we loop through our $posts array, printing out post info -->
@@ -30,13 +32,13 @@
                 );*/
 
                 echo $this->Html->link(
-                    'Delete',
+                    __('Delete'),
                      array('action'=>'delete',$post['Post']['id'])
                     );
                 ?>
                 <?php
                 echo $this->Html->link(
-                    'Edit',
+                    __('Edit'),
                     array('action' => 'edit', $post['Post']['id'])
                 );
                 ?>
