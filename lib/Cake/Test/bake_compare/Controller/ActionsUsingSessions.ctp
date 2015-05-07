@@ -54,7 +54,7 @@
 		if (!$this->BakeArticle->exists($id)) {
 			throw new NotFoundException(__('Invalid bake article'));
 		}
-		if ($this->request->is('post') || $this->request->is('put')) {
+		if ($this->request->is(array('post', 'put'))) {
 			if ($this->BakeArticle->save($this->request->data)) {
 				$this->Session->setFlash(__('The bake article has been saved.'));
 				return $this->redirect(array('action' => 'index'));
@@ -81,7 +81,7 @@
 		if (!$this->BakeArticle->exists()) {
 			throw new NotFoundException(__('Invalid bake article'));
 		}
-		$this->request->onlyAllow('post', 'delete');
+		$this->request->allowMethod('post', 'delete');
 		if ($this->BakeArticle->delete()) {
 			$this->Session->setFlash(__('The bake article has been deleted.'));
 		} else {

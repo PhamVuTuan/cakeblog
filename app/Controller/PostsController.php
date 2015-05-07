@@ -2,6 +2,8 @@
 
 class PostsController extends AppController
 {
+    //var $layout = '';
+
     public function isAuthorized($user)
     {
         if(in_array($this->action,array('edit','delete')))

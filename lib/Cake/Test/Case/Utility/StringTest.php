@@ -2,8 +2,6 @@
 /**
  * StringTest file
  *
- * PHP 5
- *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -305,6 +303,10 @@ class StringTest extends CakeTestCase {
 		$result = String::tokenize('tagA "single tag" tagB', ' ', '"', '"');
 		$expected = array('tagA', '"single tag"', 'tagB');
 		$this->assertEquals($expected, $result);
+
+		$result = String::tokenize('');
+		$expected = array();
+		$this->assertEquals($expected, $result);
 	}
 
 	public function testReplaceWithQuestionMarkInString() {
@@ -312,6 +314,84 @@ class StringTest extends CakeTestCase {
 		$expected = '2 and 3?';
 		$result = String::insert($string, array('b' => 2, 'c' => 3), array('clean' => true));
 		$this->assertEquals($expected, $result);
+	}
+
+/**
+ * test that wordWrap() works the same as built-in wordwrap function
+ *
+ * @dataProvider wordWrapProvider
+ * @return void
+ */
+	public function testWordWrap($text, $width, $break = "\n", $cut = false) {
+		$result = String::wordWrap($text, $width, $break, $cut);
+		$expected = wordwrap($text, $width, $break, $cut);
+		$this->assertTextEquals($expected, $result, 'Text not wrapped same as built-in function.');
+	}
+
+/**
+ * data provider for testWordWrap method
+ *
+ * @return array
+ */
+	public function wordWrapProvider() {
+		return array(
+			array(
+				'The quick brown fox jumped over the lazy dog.',
+				33
+			),
+			array(
+				'A very long woooooooooooord.',
+				8
+			),
+			array(
+				'A very long woooooooooooord. Right.',
+				8
+			),
+		);
+	}
+
+/**
+ * test that wordWrap() properly handle unicode strings.
+ *
+ * @return void
+ */
+	public function testWordWrapUnicodeAware() {
+		$text = 'Но вим омниюм факёльиси элыктрам, мюнырэ лэгыры векж ыт. Выльёт квюандо нюмквуам ты кюм. Зыд эю рыбюм.';
+		$result = String::wordWrap($text, 33, "\n", true);
+		$expected = <<<TEXT
+Но вим омниюм факёльиси элыктрам,
+мюнырэ лэгыры векж ыт. Выльёт квю
+андо нюмквуам ты кюм. Зыд эю рыбю
+м.
+TEXT;
+		$this->assertTextEquals($expected, $result, 'Text not wrapped.');
+
+		$text = 'Но вим омниюм факёльиси элыктрам, мюнырэ лэгыры векж ыт. Выльёт квюандо нюмквуам ты кюм. Зыд эю рыбюм.';
+		$result = String::wordWrap($text, 33, "\n");
+		$expected = <<<TEXT
+Но вим омниюм факёльиси элыктрам,
+мюнырэ лэгыры векж ыт. Выльёт
+квюандо нюмквуам ты кюм. Зыд эю
+рыбюм.
+TEXT;
+		$this->assertTextEquals($expected, $result, 'Text not wrapped.');
+	}
+
+/**
+ * test that wordWrap() properly handle newline characters.
+ *
+ * @return void
+ */
+	public function testWordWrapNewlineAware() {
+		$text = 'This is a line that is almost the 55 chars long.
+This is a new sentence which is manually newlined, but is so long it needs two lines.';
+		$result = String::wordWrap($text, 55);
+		$expected = <<<TEXT
+This is a line that is almost the 55 chars long.
+This is a new sentence which is manually newlined, but
+is so long it needs two lines.
+TEXT;
+		$this->assertTextEquals($expected, $result, 'Text not wrapped.');
 	}
 
 /**
@@ -336,6 +416,16 @@ TEXT;
 			'ever ends. This is ' . "\n" .
 			'the song that never' . "\n" .
 			' ends.';
+		$this->assertTextEquals($expected, $result, 'Text not wrapped.');
+
+		$text = 'Но вим омниюм факёльиси элыктрам, мюнырэ лэгыры векж ыт. Выльёт квюандо нюмквуам ты кюм. Зыд эю рыбюм.';
+		$result = String::wrap($text, 33);
+		$expected = <<<TEXT
+Но вим омниюм факёльиси элыктрам,
+мюнырэ лэгыры векж ыт. Выльёт
+квюандо нюмквуам ты кюм. Зыд эю
+рыбюм.
+TEXT;
 		$this->assertTextEquals($expected, $result, 'Text not wrapped.');
 	}
 
@@ -583,7 +673,7 @@ podeís adquirirla.</span></p>
 		$this->assertEquals($this->Text->highlight($text3, array('strong', 'what'), $options), $text3);
 
 		$expected = '<b>What</b> a <b>strong</b> mouse: <img src="what-a-strong-mouse.png" alt="What a strong mouse!" />';
-		$this->assertEquals($this->Text->highlight($text4, array('strong', 'what'), $options), $expected);
+		$this->assertEquals($expected, $this->Text->highlight($text4, array('strong', 'what'), $options));
 	}
 
 /**
