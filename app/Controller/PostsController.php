@@ -4,6 +4,12 @@ class PostsController extends AppController
 {
     //var $layout = '';
 
+    public function beforeFilter()
+    {
+        parent::beforeFilter();
+       // $this->Auth->allow('add','logout');
+
+    }
     public function isAuthorized($user)
     {
         if(in_array($this->action,array('edit','delete')))
@@ -16,12 +22,14 @@ class PostsController extends AppController
             }
            return false;
         }
+        return true;
 
     }
     public function index()
     {
         //  $this->User->id = 6;
        // echo $this->Post->field('title',array('id'=>10,'user_id'=>7));
+
         $this->set('posts', $this->Post->find('all'));
     }
 
