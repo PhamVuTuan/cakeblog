@@ -7,7 +7,7 @@ class PostsController extends AppController
     public function beforeFilter()
     {
         parent::beforeFilter();
-       // $this->Auth->allow('add','logout');
+       $this->Auth->allow('index');
 
     }
     public function isAuthorized($user)
@@ -25,10 +25,9 @@ class PostsController extends AppController
         return true;
 
     }
+
     public function index()
     {
-        //  $this->User->id = 6;
-       // echo $this->Post->field('title',array('id'=>10,'user_id'=>7));
 
         $this->set('posts', $this->Post->find('all'));
     }

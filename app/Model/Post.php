@@ -1,8 +1,9 @@
 <?php
 
+App::uses('CakeEvent','Event');
+
 class Post extends AppModel
 {
-
 
 
     public $actsAs = array(
@@ -26,5 +27,7 @@ class Post extends AppModel
     {
         return $this->field('id', array('id' => $post, 'user_id' => $user)) !== false;
     }
+
+
 
 }

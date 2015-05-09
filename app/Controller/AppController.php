@@ -55,7 +55,7 @@ class AppController extends Controller {
 
     public function beforeFilter() {
 
-        $this->Auth->allow('index', 'view','change');
+        $this->Auth->allow('view','change');
         //$this->_setLanguage();
         if ($this->Session->check('Config.language')) {
             Configure::write('Config.language', $this->Session->read('Config.language'));

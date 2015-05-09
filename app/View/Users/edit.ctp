@@ -1,1 +1,13 @@
-<h1><?php echo __FILE__ ;?></h1>
+<h2>Edit User</h2>
+<div class='upper-right-opt'>
+    <?php echo $this->Html->link( 'List Users', array( 'action' => 'index' ) ); ?>
+</div>
+
+<?php
+echo $this->Form->create('User');
+
+echo $this->Form->input('username');
+echo $this->Form->input('password', array('type'=>'password'));
+
+echo $this->Form->end('Submit');
+?>
