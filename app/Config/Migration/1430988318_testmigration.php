@@ -17,7 +17,7 @@ class TestMigration extends CakeMigration {
 		'up' => array(
 			'create_field' => array(
 				'posts' => array(
-					'slug' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false, 'after' => 'created'),
+					'slug' => array('type' => 'string', 'length' => 40, 'null' => true, 'default' => null, 'unsigned' => false, 'after' => 'created'),
 				),
 			),
 			/*'alter_field' => array(
